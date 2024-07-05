@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imágenes Subidas</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        /* Estilos del encabezado */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slide-down 0.5s ease-in-out;
+        }
+
+        header nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin-right: 20px;
+            animation: fade-in 0.5s ease-in-out;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            color: #ccc;
+        }
+
+        /* Estilos de la sección de imágenes subidas */
+        .uploaded-images {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            animation: scale-up 0.5s ease-in-out;
+        }
+
+        .uploaded-images h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fade-in 0.5s ease-in-out;
+        }
+
+        .image-container {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #ccc;
+            animation: slide-up 0.5s ease-in-out;
+        }
+
+        .image-container h3 {
+            margin-top: 0;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+            animation: fade-in 0.5s ease-in-out;
+        }
+
+        /* Estilos del pie de página */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            animation: slide-up 0.5s ease-in-out;
+        }
+
+        /* Animaciones */
+        @keyframes slide-down {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes scale-up {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slide-up {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="listardatos.html">Listar Datos</a></li>
+                <li><a href="usuario.html">Usuario</a></li>
+                <li><a href="administrador.html">Administrador</a></li>
+                <li><a href="iniciarsesion.html">Iniciar Sesión</a></li>
+                <li><a href="registro.html">Registrarse</a></li>
+                <li><a href="imagen.html">Sube una imagen</a></li>
+                <li><a href="imagenesSubidas.html">Imágenes Subidas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="uploaded-images">
+            <h2>Imágenes Subidas</h2>
+            <div id="imagenesSubidas">
+                <!-- Las imágenes subidas se mostrarán aquí -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Empresa. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función para cargar las imágenes al cargar la página
+        window.onload = function () {
+            fetch('/imagenes')
+            .then(response => response.json())
+            .then(data => {
+                const imagenesDiv = document.getElementById('imagenesSubidas');
+                data.forEach(imagen => {
+                    const imgDiv = document.createElement('div');
+                    imgDiv.classList.add('image-container');
+                    imgDiv.innerHTML = 
+                        '<h3>' + imagen.nombre + '</h3>' +
+                        '<p>' + imagen.descripcion + '</p>' +
+                        '<img src="/imagenes/' + imagen.imagen + '" alt="' + imagen.nombre + '">';
+                    imagenesDiv.appendChild(imgDiv);
+                });
+            });
+        };
+    </script>
+</body>
+</html>
